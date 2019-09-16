@@ -21,8 +21,8 @@ The output should list the top three teams, ordered from most to least points,
 at the end of each matchday. See the expected format specified in
 expected-output.txt.
 
-Your solution should handle error cases due to invalid input for example. We
-leave it up to you to identify these cases and decide how to handle them.
+You can expect that the input will be well-formed. Bonus points if your
+solution handles a few basic error cases.
 
 ### The rules
 
