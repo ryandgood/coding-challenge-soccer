@@ -1,5 +1,19 @@
-1. Tarantulas, 6 pts
-2. Lions, 5 pts
-3. FC Awesome, 1 pt
-3. Snakes, 1 pt
-5. Grouches, 0 pts
+Matchday 1
+Capitola Seahorses, 3 pts
+Felton Lumberjacks, 3 pts
+San Jose Earthquakes, 1 pt
+
+Matchday 2
+Capitola Seahorses, 4 pts
+Aptos FC, 3 pts
+Felton Lumberjacks, 3 pts
+
+Matchday 3
+Aptos FC, 6 pts
+Felton Lumberjacks, 6 pts
+Monterey United, 6 pts
+
+Matchday 4
+Aptos FC, 9 pts
+Felton Lumberjacks, 7 pts
+Monterey United, 6 pts
