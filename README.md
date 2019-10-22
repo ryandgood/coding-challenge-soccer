@@ -1,25 +1,27 @@
 ## The Problem
 
 We want you to create a command-line application that reads a listing of game
-results for a soccer league, grouped by matchday, and returns the top teams at
+results for a soccer league as a stream and returns the top teams at
 the end of each matchday.
 
 ### Input/output
 
-The input and output will be text. Your solution should parse the provided
-sample-input.txt file via stdin (pipe or redirect) or by parsing a file passed
-by name on the command line. Your solution should output the correct result via
-stdout to the console.
+The input and output will be text. To keep things simple a static file will be
+used to represent the input stream of game results. Your solution should read
+and process game results one at a time by reading the provided sample-input.txt
+file, via stdin (pipe or redirect) or as a file path passed as input argument.
+Your solution should then output the correct result via stdout to the console.
 
 The input contains results of games, one per line and grouped by matchday. All
 teams play exactly once during a matchday, e.g. given a league of six teams,
 each matchday would consist of three games. There is no specific delimiter
 between matchdays so your application should recognize the start and end of
-a matchday. See sample-input.txt for details.
+a matchday. See sample-input.txt as an example.
 
-The output should list the top three teams, ordered from most to least points,
-at the end of each matchday. See the expected format specified in
-expected-output.txt.
+After reading and processing a game result, if this is the end of a matchday,
+your solution should output the top three teams, ordered from most to least
+points. If this is not the end of a matchday, your solution should move on to
+the next game result. See the expected format specified in expected-output.txt.
 
 You can expect that the input will be well-formed. Bonus points if your
 solution handles a few basic error cases.
@@ -49,7 +51,7 @@ installed packages.
 
 We write automated tests and we would like you to do so as well.
 
-We appreciate well factored, object-oriented or functional designs.
+We appreciate clean and well factored designs.
 
 Anything that isn't explicitly specified or is unclear is up to you to
 decide.
