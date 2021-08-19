@@ -1,9 +1,10 @@
 import argparse
+import typing
 from pprint import pprint
 from operator import itemgetter
 
 
-def parse_input(input_path):
+def parse_input(input_path: str) -> list:
     """
     parse_input takes in the input file, and breaks it down into
     a managable data structure. It returns a list of matches,
@@ -20,9 +21,15 @@ def parse_input(input_path):
             matches.append(line.split(sep=", "))
     for match in matches:
         first_team = match[0].rsplit(" ", 1)
-        first_team_parsed = first_team[0], int(first_team[1])
         second_team = match[1].rsplit(" ", 1)
-        second_team_parsed = second_team[0], int(second_team[1])
+        try:
+            first_team_parsed = first_team[0], int(first_team[1])
+            second_team_parsed = second_team[0], int(second_team[1])
+        except ValueError:
+            print(
+                f"Bad score for match between {first_team_parsed[0]} and {second_team_parsed[0]}, skipping"
+            )
+            continue
         match_tuple = first_team_parsed, second_team_parsed
         parsed_input.append(match_tuple)
     return parsed_input
@@ -51,11 +58,13 @@ def calculate_standings(parsed_input):
             team_one_rank += 1
             team_two_rank += 1
 
+        # if a team has already played, it's safe to assume a new day
         if team_one in played_today or team_two in played_today:
             output_prettily(daily_ranking, day_count)
             played_today.clear()
             day_count += 1
 
+        # update the daily rankings per team.
         daily_ranking[team_one] = team_one_rank
         daily_ranking[team_two] = team_two_rank
         played_today.append(team_one)
@@ -66,7 +75,10 @@ def calculate_standings(parsed_input):
     output_prettily(daily_ranking, day_count)
 
 
-def output_prettily(daily_ranking, day):
+def output_prettily(daily_ranking: dict, day: int):
+    """
+    output_prettily will write the rankings to stdout in the format required.
+    """
     count = 0
     ranked = sorted(daily_ranking.items(), key=itemgetter(1), reverse=True)
     print("Matchday " + str(day))
@@ -78,9 +90,21 @@ def output_prettily(daily_ranking, day):
 
 
 def main():
-    input_path = "sample-input.txt"
-    match_list = parse_input(input_path)
-    daily_standings = calculate_standings(match_list)
+    parser = argparse.ArgumentParser(
+        description="Calculate soccer rankings after each match day"
+    )
+    parser.add_argument(
+        "--input_path", help="path to a file containing matches", required=True
+    )
+    parser.add_argument(
+        "--output_path",
+        help="path to output results to. Defaults to STDOUT if not set.",
+        required=False,
+    )
+    args = parser.parse_args()
+
+    match_list = parse_input(args.input_path)
+    calculate_standings(match_list)
 
 
 if __name__ == "__main__":
