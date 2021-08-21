@@ -1,6 +1,4 @@
 import argparse
-import typing
-from pprint import pprint
 from operator import itemgetter
 
 
@@ -27,7 +25,7 @@ def parse_input(input_path: str) -> list:
             second_team_parsed = second_team[0], int(second_team[1])
         except ValueError:
             print(
-                f"Bad score for match between {first_team_parsed[0]} and {second_team_parsed[0]}, skipping"
+                f"Score invalid for match between {first_team_parsed[0]} and {second_team_parsed[0]}, skipping"
             )
             continue
         match_tuple = first_team_parsed, second_team_parsed
@@ -80,11 +78,16 @@ def output_prettily(daily_ranking: dict, day: int):
     output_prettily will write the rankings to stdout in the format required.
     """
     count = 0
+    # sort each item in the daily ranking based on value
     ranked = sorted(daily_ranking.items(), key=itemgetter(1), reverse=True)
     print("Matchday " + str(day))
     while count < 3:
         team, score = ranked[count]
-        print(team + ", " + str(score) + " pts")
+        if score == 1:
+            units = " pt"
+        else:
+            units = " pts"
+        print(team + ", " + str(score) + units)
         count += 1
     print()
 
